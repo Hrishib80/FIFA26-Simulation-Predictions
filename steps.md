@@ -15,7 +15,7 @@
 **Inputs:** `df_games`
 
 **Process:**
-1. Filter `df_games` to completed matches only (drop the 2026 WC fixtures with NaN scores).
+1. use historical_matches.csv (this one excludes WC2026 upcoming fixtures)
 2. Sort by date ascending.
 3. Initialize every team at Elo = 1500.
 4. Walk through matches in order. For each match:
@@ -37,26 +37,34 @@
 
 ## Step 2 — Match-level metadata
 
-**Goal:** derive features on each historical match for model training.
+**Goal:** enrich `df_match_features` (Elo already attached from Step 1) with
+the remaining features needed for model training.
 
-**Inputs:** `df_games`, `df_elo` (from Step 1)
+**Inputs:** `df_match_features.csv` from Step 1, `FIFA_confederations.csv`
+from `data/reference/`.
 
-**Process for each match in `df_games`:**
+**Process — in order of increasing complexity:**
 
-1. **`home_elo` / `away_elo`** — join `df_elo` to get each team's Elo *just before* this match.
-2. **`elo_diff`** — `home_elo − away_elo`.
-3. **`is_competitive`** — boolean: True if `tournament` is not "Friendly".
-4. **`tournament_weight`** — numeric weight by tournament importance:
-   - World Cup = 4, continental championship (Euro, Copa) = 3, qualifiers + Nations League = 2, friendly = 1.
-5. **`recent_goal_diff_10_home`** / **`recent_goal_diff_10_away`** — for each team, sum of (goals_for − goals_against) over their last 10 matches before this date.
-6. **`h2h_last_5`** — for the specific (home_team, away_team) pair, count of home wins minus away wins in their last 5 meetings before this date.
+1. **`tournament_weight`** — map tournament name to 1-5 using the same
+   tier system as the Elo K-factor (World Cup=5, Continental=4, etc.).
+2. **`is_competitive`** — boolean: True if tournament != 'Friendly'.
+3. **Confederation merge** — join `FIFA_confederations.csv` twice to get
+   `home_confederation` and `away_confederation`.
+4. **`home_recent_gd_10`** / **`away_recent_gd_10`** — for each team, sum
+   of (goals_for − goals_against) over their previous 10 matches before
+   this match date. Must use only *prior* matches (no leakage).
+5. **`h2h_home_advantage`** — for the (home_team, away_team) pair, count
+   of home wins minus away wins in their last 5 prior meetings.
 
-**Output:** `df_match_features` — all historical matches enriched with the columns above.
+**Output:** updated `df_match_features.csv` (overwrites Step 1 version).
 
-**Sanity check before moving on:**
-- Row count matches the filtered `df_games`.
-- No NaN in `home_elo` / `away_elo` (early matches in 1872 will have starting Elo = 1500, that's fine).
-- `tournament_weight` distribution looks right — most matches are 1 or 2.
+**Sanity checks:**
+- Row count unchanged (still 49,048).
+- `tournament_weight` distribution: bulk of matches should sit in weights 1-3.
+- `home_confederation` / `away_confederation` have no NaN for the 48 WC2026 teams.
+- `home_recent_gd_10` should be NaN only for very early matches in each team's
+  history (where they haven't played 10 prior games yet) — fill with 0.
+- `h2h_home_advantage` will be NaN for first meetings — fill with 0.
 
 ---
 
