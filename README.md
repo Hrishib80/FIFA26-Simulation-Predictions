@@ -4,6 +4,8 @@
 
 A football analytics project that predicts World Cup 2026 team probabilities using Poisson models and Monte Carlo simulation.
 
+PS: You can re-use the content of this repo make sure to credit "Anas Riad" and give me a shout on LinkedIn (https://www.linkedin.com/in/riadanas/)
+
 ## Purpose
 
 The goal of this project is to estimate each team’s chance of reaching different stages of the 2026 FIFA World Cup, from the group stage to winning the tournament.
