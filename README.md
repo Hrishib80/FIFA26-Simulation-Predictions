@@ -3,7 +3,7 @@
 # Live Simulation
 <p align="center">
   <a href="simulation.mp4">
-    <img src="https://img.shields.io/badge/▶_Watch_Demo-cabinAI__Demo.mp4-2ea44f?style=for-the-badge" alt="Watch the demo">
+    <img src="https://img.shields.io/badge/▶_simulation.mp4-2ea44f?style=for-the-badge" alt="Watch the demo">
   </a>
 </p>
 
