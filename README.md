@@ -2,13 +2,13 @@
 
 # Live Simulation
 <p align="center">
-  <a href="Demo/simulation.mp4">
+  <a href="simulation.mp4">
     <img src="https://img.shields.io/badge/▶_Watch_Demo-cabinAI__Demo.mp4-2ea44f?style=for-the-badge" alt="Watch the demo">
   </a>
 </p>
 
 <p align="center">
-  <video src="Demo/simulation.mp4" controls width="720">
+  <video src="simulation.mp4" controls width="720">
     Your browser does not support embedded video.
     <a href="Demo/simulation.mp4">Download / open the demo video</a> instead.
   </video>
