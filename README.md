@@ -1,10 +1,23 @@
 # World Cup 2026 Prediction Project
 
+# Live Simulation
+<p align="center">
+  <a href="Demo/simulation.mp4">
+    <img src="https://img.shields.io/badge/▶_Watch_Demo-cabinAI__Demo.mp4-2ea44f?style=for-the-badge" alt="Watch the demo">
+  </a>
+</p>
+
+<p align="center">
+  <video src="Demo/simulation.mp4" controls width="720">
+    Your browser does not support embedded video.
+    <a href="Demo/simulation.mp4">Download / open the demo video</a> instead.
+  </video>
+</p>
+
 ## Subtitle
 
 A football analytics project that predicts World Cup 2026 team probabilities using Poisson models and Monte Carlo simulation.
 
-PS: You can re-use the content of this repo make sure to credit "Anas Riad" and give me a shout on LinkedIn (https://www.linkedin.com/in/riadanas/)
 
 ## Purpose
 
